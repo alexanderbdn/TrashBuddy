@@ -14,8 +14,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Define a dictionary to map materials to recycling categories
 material_to_category = {
     'plastic': 'recycle',
+    'plastic bottle': 'recycle',
     'metal': 'recycle',
     'glass': 'recycle',
+    'glass bottle': 'recycle',
     'paper': 'recycle',
     'foil': 'recycle',
     'metal food container': 'recycle',
@@ -86,11 +88,8 @@ def upload_file():
             # Save file to the uploads directory
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'upload1.jpeg')
             file.save(filepath)
-            print('start')
-            classify_waste() 
-            print('finished')
-            return 'File uploaded successfully'
-        
+            out_a, out_b = classify_waste() 
+            return f'The material is {out_a} and its recycling category is {out_b}'
     return render_template('index.html')
 
 if __name__ == '__main__':

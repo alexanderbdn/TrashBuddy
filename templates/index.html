@@ -1,16 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Image</title>
+    <title>Trash Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Upload an Image</h1>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
+    <header class="header-container">
+        <h1>Trash Buddy</h1>
+    </header>
+    <main class="main-content">
+        <section class="welcome">
+            <h1>Hello! Welcome to Trash Buddy</h1>
+            <p>Upload an image to determine the type of trash.</p>
+        </section>
+        <section class="image-upload">
+            <img src="{{ url_for('static', filename='my_image.jpeg') }}" alt="Trash Image" class="responsive-img">
+            <form method="POST" enctype="multipart/form-data">
+                <label for="file" class="custom-file-upload">
+                    <input type="file" id="file" name="file" required>
+                    Choose File
+                </label>
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>
-
