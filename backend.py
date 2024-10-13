@@ -91,6 +91,8 @@ def upload_file():
             out_a, out_b = classify_waste() 
             return f'The material is {out_a} and its recycling category is {out_b}'
             
+            
+
     return render_template('index.html')
 
 if __name__ == '__main__':
