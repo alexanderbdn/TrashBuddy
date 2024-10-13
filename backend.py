@@ -90,9 +90,11 @@ def upload_file():
             file.save(filepath)
             out_a, out_b = classify_waste() 
             return f'The material is {out_a} and its recycling category is {out_b}'
+            
     return render_template('index.html')
 
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
     app.run(debug=True, port=5500)
+    
