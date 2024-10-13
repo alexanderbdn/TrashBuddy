@@ -22,16 +22,43 @@ material_to_category = {
     'foil': 'recycle',
     'metal food container': 'recycle',
     'plastic food container': 'recycle',
+    'cardboard': 'recycle',
+    'aluminum can': 'recycle',
+    'tin can': 'recycle',
+    'magazines': 'recycle',
+    'newspaper': 'recycle',
+    'plastic plate': 'recycle',
+    'carton': 'recycle',
+    'plastic bag': 'recycle',
     'organic waste': 'nature',
+    'paper plate': 'nature',
     'food': 'nature',
     'wood': 'nature',
     'plants': 'nature',
     'fruits': 'nature',
+    'banana': 'nature',
     'vegetables': 'nature',
+    'coffee grounds': 'nature',
+    'tea leaves': 'nature',
+    'leaves': 'nature',
+    'grass': 'nature',
+    'compostable packaging': 'nature',
     'electronics': 'trash',
     'battery': 'trash',
+    'light bulb': 'trash',
+    'ceramic': 'trash',
+    'diapers': 'trash',
+    'styrofoam': 'trash',
+    'tissue paper': 'trash',
+    'disposable utensils': 'trash',
+    'cigarette butts': 'trash',
+    'rubber': 'trash',
+    'latex gloves': 'trash',
+    'medical waste': 'trash',
+    'hazardous waste': 'trash',
+    'broken glass': 'trash',
     'human': 'none',
-    'animal': 'none',
+    'animal': 'none'
 }
 
 # Initialize the CLIP model
@@ -43,7 +70,7 @@ materials = list(material_to_category.keys())
 
 @app.route('/classify_image', methods=['GET', 'POST'])
 def classify_waste():
-    image_path = "/Users/alex/Recycling_Sorter/Front_End/uploads/upload1.jpeg"
+    image_path = "./uploads/upload1.jpeg"
     # Load and preprocess the image
     image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
     
@@ -89,8 +116,15 @@ def upload_file():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'upload1.jpeg')
             file.save(filepath)
             out_a, out_b = classify_waste() 
-            return f'The material is {out_a} and its recycling category is {out_b}'
-            
+            #return f'The material is {out_a} and its recycling category is {out_b}'
+            if out_b == "recycle":
+                return render_template('recycling.html', material=out_a)
+            elif out_b == "nature":
+                return render_template('nature.html', material=out_a)
+            elif out_b == "trash":
+                return render_template('trash.html', material=out_a)
+            elif out_b == "none":
+                return render_template('none.html', material=out_a)
             
 
     return render_template('index.html')
